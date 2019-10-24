@@ -1,4 +1,3 @@
-import io
 import os
 import RPi.GPIO as GPIO
 import pygame
@@ -9,42 +8,32 @@ GPIO.setmode(GPIO.BCM)
 chan_list = [16,26,12,20,21,13]
 GPIO.setup(chan_list, GPIO.OUT)
 #define motor forwards and backwards
-def left_forward():
+def rover_forward():
     GPIO.output(16,1)
     GPIO.output(26,0)
-def left_backward():
-    GPIO.output(16,0)
-    GPIO.output(26,1)
-def right_forward():
     GPIO.output(20,0)
     GPIO.output(21,1)
-def right_backward():
+def rover_backward():
+    GPIO.output(16,0)
+    GPIO.output(26,1)
     GPIO.output(20,1)
     GPIO.output(21,0)
 def pwm_power_start():
-    l.ChangeDutyCycle(100)
-    r.ChangeDutyCycle(100)
+    l.ChangeDutyCycle(l_power)
+    r.ChangeDutyCycle(r_power)
 def pwm_power_stop():
     l.ChangeDutyCycle(0)
     r.ChangeDutyCycle(0)    
 def take_picture():
+    camera = picamera.PiCamera()
+    camera.resolution = (1280, 720)
     camera.capture('/home/pi/Pictures/image.jpg')
+    camera.close()
+def pwm_power_state():
+    pass
     
-def camera_test():    
-    #stream camera
-    stream = io.BytesIO()
-    camera.vflip = True
-    camera.hflip = True
-    camera.capture(stream, use_video_port=True, format='rgb')
-    stream.seek(0)
-    stream.readinto(rgb)
-    stream.close()
-    img = pygame.image.frombuffer(rgb[0:(camera.resolution[0]*camera.resolution[1]*3)],camera.resolution, 'RGB')
-    screen.fill(0)
-    if img:
-        screen.blit(img,(x,y))            
-    pygame.display.update()
-
+l_power = 100
+r_power = 100
 promt = ""
 while promt != 'exit':
     os.system('cls||clear')
@@ -58,61 +47,65 @@ while promt != 'exit':
         
         #turn on display and init camera
         pygame.init()
-        screen = pygame.display.set_mode((0,0))
-        camera = picamera.PiCamera()
-        camera.resolution = (1280, 720)
-        camera.crop = (0.0, 0.0, 1.0, 1.0)
+        screen = pygame.display.set_mode(800,600)
         pygame.display.set_caption('Rover CAM')
-    
-        x = (screen.get_width() - camera.resolution[0])/2
-        y = (screen.get_height() - camera.resolution[1])/2
-        
-        rgb = bytearray(camera.resolution[0] * camera.resolution[1]*3)
-    
+
         #Access a needed loop for pygame commands
         run = True
         while run == True:            
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False           
-            camera_test()
             #Defining keys
             keys_pressed = pygame.key.get_pressed() 
             #Ecs = quit
             if keys_pressed[pygame.K_ESCAPE]:
                 run = False
-                pygame.quit()            
-            #Controlling rover
-            if keys_pressed[pygame.K_UP]:
-                left_forward()
-                right_forward()
-                pwm_power_start()
-            if keys_pressed[pygame.K_DOWN]:
-                left_backward()
-                right_backward()
-                pwm_power_start()
-            if keys_pressed[pygame.K_LEFT]:
-                right_forward()
-                left_forward()
-                l.ChangeDutyCycle(100)
-                r.ChangeDutyCycle(50)                
-            if keys_pressed[pygame.K_RIGHT]:
-                left_forward()
-                right_forward()
-                l.ChangeDutyCycle(50)
-                r.ChangeDutyCycle(100)
+                pygame.quit()
+        #Try to get gears on rover
+        #Gear shift on rover
+        if keys_pressed[pygame.K_1]:
+            r_power = 30
+            l_power = 30
+            print("Power at 30%")
+        if keys_pressed[pygame.K_2]:
+            r_power = 60
+            l_power = 60
+            print("Power at 60%")
+        if keys_pressed[pygame.K_3]:
+            r_power = 100
+            l_power = 100
+            print("Power at 100%")
+        #Control the rover
+        if keys_pressed[pygame.K_UP]:
+            rover_forward()
+            pwm_power_start()
+            print('up')
+        if keys_pressed[pygame.K_DOWN]:
+            rover_backward()
+            pwm_power_start()
+            print('down')
+        if keys_pressed[pygame.K_LEFT]:
+            rover_forward()
+            l.ChangeDutyCycle(l_power)
+            r.ChangeDutyCycle(r_power/2)
+            print('left')             
+        if keys_pressed[pygame.K_RIGHT]:
+            rover_forward()
+            l.ChangeDutyCycle(l_power/2)
+            r.ChangeDutyCycle(r_power)
+            print('right')
             
             #smile to the camera!! xD    
-            if keys_pressed[pygame.K_1]:
+            if keys_pressed[pygame.K_0]:
                 take_picture()
+                print('snap_shot')
             
             #Space stops rover
             if keys_pressed[pygame.K_SPACE]:
                 pwm_power_stop()
-                
-            
-        camera.close()
-        
+                print('chane boolean')
+
         pygame.display.quit()
         l.stop()
         r.stop()
