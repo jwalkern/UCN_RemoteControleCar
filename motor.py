@@ -28,9 +28,6 @@ def take_picture():
     camera = picamera.PiCamera()
     camera.resolution = (1280, 720)
     camera.capture('/home/pi/Pictures/image.jpg')
-    camera.close()
-def pwm_power_state():
-    pass
     
 l_power = 100
 r_power = 100
@@ -55,57 +52,57 @@ while promt != 'exit':
         while run == True:            
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    run = False           
+                    run = False
             #Defining keys
             keys_pressed = pygame.key.get_pressed() 
             #Ecs = quit
             if keys_pressed[pygame.K_ESCAPE]:
                 run = False
                 pygame.quit()
-        #Try to get gears on rover
-        #Gear shift on rover
-        if keys_pressed[pygame.K_1]:
-            r_power = 30
-            l_power = 30
-            print("Power at 30%")
-        if keys_pressed[pygame.K_2]:
-            r_power = 60
-            l_power = 60
-            print("Power at 60%")
-        if keys_pressed[pygame.K_3]:
-            r_power = 100
-            l_power = 100
-            print("Power at 100%")
-        #Control the rover
-        if keys_pressed[pygame.K_UP]:
-            rover_forward()
-            pwm_power_start()
-            print('up')
-        if keys_pressed[pygame.K_DOWN]:
-            rover_backward()
-            pwm_power_start()
-            print('down')
-        if keys_pressed[pygame.K_LEFT]:
-            rover_forward()
-            l.ChangeDutyCycle(l_power)
-            r.ChangeDutyCycle(r_power/2)
-            print('left')             
-        if keys_pressed[pygame.K_RIGHT]:
-            rover_forward()
-            l.ChangeDutyCycle(l_power/2)
-            r.ChangeDutyCycle(r_power)
-            print('right')
-            
+            #Try to get gears on rover
+            #Gear shift on rover
+            if keys_pressed[pygame.K_1]:
+                r_power = 30
+                l_power = 30
+                print("Power at 30%")
+            if keys_pressed[pygame.K_2]:
+                r_power = 60
+                l_power = 60
+                print("Power at 60%")
+            if keys_pressed[pygame.K_3]:
+                r_power = 100
+                l_power = 100
+                print("Power at 100%")
+            #Control the rover
+            if keys_pressed[pygame.K_UP]:
+                rover_forward()
+                pwm_power_start()
+                print('up')
+            if keys_pressed[pygame.K_DOWN]:
+                rover_backward()
+                pwm_power_start()
+                print('down')
+            if keys_pressed[pygame.K_LEFT]:
+                rover_forward()
+                l.ChangeDutyCycle(l_power)
+                r.ChangeDutyCycle(r_power/2)
+                print('left')
+            if keys_pressed[pygame.K_RIGHT]:
+                rover_forward()
+                l.ChangeDutyCycle(l_power/2)
+                r.ChangeDutyCycle(r_power)
+                print('right')
+
+
             #smile to the camera!! xD    
             if keys_pressed[pygame.K_0]:
                 take_picture()
                 print('snap_shot')
-            
+
             #Space stops rover
             if keys_pressed[pygame.K_SPACE]:
                 pwm_power_stop()
                 print('chane boolean')
-
         pygame.display.quit()
         l.stop()
         r.stop()
