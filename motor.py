@@ -44,7 +44,7 @@ while promt != 'exit':
         
         #turn on display and init camera
         pygame.init()
-        screen = pygame.display.set_mode(800,600)
+        screen = pygame.display.set_mode((800,600))
         pygame.display.set_caption('Rover CAM')
 
         #Access a needed loop for pygame commands

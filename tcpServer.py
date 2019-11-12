@@ -3,6 +3,29 @@ Dette er tcpServer, som modtager signal, og håndtere motor styring
 """
 
 import socket
+import RPi.GPIO as GPIO
+
+#set motors ready for output
+GPIO.setmode(GPIO.BCM)
+chan_list = [16,26,12,20,21,13]
+GPIO.setup(chan_list, GPIO.OUT)
+#define motor forwards and backwards
+def rover_forward():
+    GPIO.output(16,1)
+    GPIO.output(26,0)
+    GPIO.output(20,0)
+    GPIO.output(21,1)
+def rover_backward():
+    GPIO.output(16,0)
+    GPIO.output(26,1)
+    GPIO.output(20,1)
+    GPIO.output(21,0)
+def pwm_power_start():
+    l.ChangeDutyCycle(l_power)
+    r.ChangeDutyCycle(r_power)
+def pwm_power_stop():
+    l.ChangeDutyCycle(0)
+    r.ChangeDutyCycle(0)
 
 print("Kører serveren\n")
 
@@ -19,17 +42,32 @@ while run:
     print("Værten med " + str(addresse[0]) + " har etableret forbindelse.")
 
     # Moodtager data
-    while True:
+    runServer = True
+    while runServer:
         data = forbindelse.recv(64)
-
         dekodet_data = data.decode("UTF-8")
+        if dekodet_data == 'K_1':
+            print('1')
+        if dekodet_data == 'K_2':
+            print('2')
+        if dekodet_data == 'K_3':
+            print('3')
 
-        if data:
-            print("Data modtaget: ", str(dekodet_data))
-        elif dekodet_data == 'K_ESCAPE':
-            print("Ikke mere data.")
-            break
+        if dekodet_data == 'K_UP':
+            print('up')
+
+        if dekodet_data == 'K_DOWN':
+            print('down')
+        if dekodet_data == 'K_LEFT':
+            print('left')
+        if dekodet_data == 'K_RIGHT':
+            print('right')
+        if dekodet_data == 'K_SPACE':
+            print('space')
+        if dekodet_data == 'K_ESCAPE':
+            print('shutting server down')
+            runServer = False
 
     forbindelse.close()
-
+    run = False
 skt.close()

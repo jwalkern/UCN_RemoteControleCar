@@ -21,7 +21,7 @@ while run:
     skt.connect((host, port))
 
     pygame.init()
-    screen = pygame.display.set_mode(800, 600)
+    screen = pygame.display.set_mode((800, 600))
     pygame.display.set_caption('Control window')
 
     # Access a needed loop for pygame commands
@@ -41,39 +41,32 @@ while run:
             pygame.quit()
         # Gear shift on rover
         if keys_pressed[pygame.K_1]:
-            print("Power at 30%")
             data = 'K_1'
             indkodet_data = data.encode("UTF-8")
             skt.sendall(indkodet_data)
         if keys_pressed[pygame.K_2]:
-            print("Power at 60%")
             data = 'K_2'
             indkodet_data = data.encode("UTF-8")
             skt.sendall(indkodet_data)
         if keys_pressed[pygame.K_3]:
-            print("Power at 100%")
             data = 'K_3'
             indkodet_data = data.encode("UTF-8")
             skt.sendall(indkodet_data)
 
         # Control the rover
         if keys_pressed[pygame.K_UP]:
-            print('up')
             data = 'K_UP'
             indkodet_data = data.encode("UTF-8")
             skt.sendall(indkodet_data)
         if keys_pressed[pygame.K_DOWN]:
-            print('down')
             data = 'K_DOWN'
             indkodet_data = data.encode("UTF-8")
             skt.sendall(indkodet_data)
         if keys_pressed[pygame.K_LEFT]:
-            print('left')
             data = 'K_LEFT'
             indkodet_data = data.encode("UTF-8")
             skt.sendall(indkodet_data)
         if keys_pressed[pygame.K_RIGHT]:
-            print('right')
             data = 'K_RIGHT'
             indkodet_data = data.encode("UTF-8")
             skt.sendall(indkodet_data)
@@ -81,4 +74,5 @@ while run:
 
     skt.close()  # Lukker forbindelsen
 
-    print("Socketen blev lukket")
+    print("Bye")
+    run = False
