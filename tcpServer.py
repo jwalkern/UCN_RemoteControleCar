@@ -5,27 +5,36 @@ Dette er tcpServer, som modtager signal, og håndtere motor styring
 import socket
 import RPi.GPIO as GPIO
 
-#set motors ready for output
+# set motors ready for output
 GPIO.setmode(GPIO.BCM)
-chan_list = [16,26,12,20,21,13]
+chan_list = [16, 26, 12, 20, 21, 13]
 GPIO.setup(chan_list, GPIO.OUT)
-#define motor forwards and backwards
+
+
+# define motor forwards and backwards
 def rover_forward():
-    GPIO.output(16,1)
-    GPIO.output(26,0)
-    GPIO.output(20,0)
-    GPIO.output(21,1)
+    GPIO.output(16, 1)
+    GPIO.output(26, 0)
+    GPIO.output(20, 0)
+    GPIO.output(21, 1)
+
+
 def rover_backward():
-    GPIO.output(16,0)
-    GPIO.output(26,1)
-    GPIO.output(20,1)
-    GPIO.output(21,0)
+    GPIO.output(16, 0)
+    GPIO.output(26, 1)
+    GPIO.output(20, 1)
+    GPIO.output(21, 0)
+
+
 def pwm_power_start():
     l.ChangeDutyCycle(l_power)
     r.ChangeDutyCycle(r_power)
+
+
 def pwm_power_stop():
     l.ChangeDutyCycle(0)
     r.ChangeDutyCycle(0)
+
 
 print("Kører serveren\n")
 

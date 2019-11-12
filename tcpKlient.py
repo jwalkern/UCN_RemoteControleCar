@@ -31,14 +31,13 @@ while run:
             if event.type == pygame.QUIT:
                 skt.close()
                 pygameRun = False
+                pygame.quit()
         # Defining keys
         keys_pressed = pygame.key.get_pressed()
         # Ecs = quit
         if keys_pressed[pygame.K_ESCAPE]:
             data = 'K_ESCAPE'
             indkodet_data = data.encode("UTF-8")
-            pygameRun = False
-            pygame.quit()
         # Gear shift on rover
         if keys_pressed[pygame.K_1]:
             data = 'K_1'
