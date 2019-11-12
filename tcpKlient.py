@@ -16,7 +16,7 @@ else:
 
 while run:
     skt = socket.socket()  # Laver en socket
-    host = "192.168.240.18"  # Dette er IP-adressen for Raspberry Pi
+    host = "192.168.1.111"  # Dette er IP-adressen for Raspberry Pi
     port = 3000
     skt.connect((host, port))
 
@@ -35,8 +35,9 @@ while run:
         keys_pressed = pygame.key.get_pressed()
         # Ecs = quit
         if keys_pressed[pygame.K_ESCAPE]:
+            data = 'K_ESCAPE'
+            indkodet_data = data.encode("UTF-8")
             pygameRun = False
-            skt.close()
             pygame.quit()
         # Gear shift on rover
         if keys_pressed[pygame.K_1]:
