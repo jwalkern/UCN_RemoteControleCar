@@ -103,8 +103,8 @@ while run:
         if dekodet_data == 'K_ESCAPE':
             print('shutting server down')
             runServer = False
-        else:
-            pwm_power_stop()
+        #else:
+        #    pwm_power_stop()
 
     forbindelse.close()
     GPIO.cleanup()
