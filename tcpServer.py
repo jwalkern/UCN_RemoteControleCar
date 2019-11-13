@@ -26,15 +26,22 @@ def rover_backward():
     GPIO.output(21, 0)
 
 
-def pwm_power_start():
-    l.ChangeDutyCycle(l_power)
-    r.ChangeDutyCycle(r_power)
+def pwm_power():
+    l.ChangeDutyCycle(100)
+    r.ChangeDutyCycle(100)
 
 
 def pwm_power_stop():
     l.ChangeDutyCycle(0)
     r.ChangeDutyCycle(0)
 
+def left():
+    l.ChangeDutyCycle(50)
+    r.ChangeDutyCycle(100)
+
+def right():
+    l.ChangeDutyCycle(100)
+    r.ChangeDutyCycle(50)
 
 print("Kører serveren\n")
 
@@ -50,32 +57,54 @@ while run:
     forbindelse, addresse = skt.accept()
     print("Værten med " + str(addresse[0]) + " har etableret forbindelse.")
 
-    # Moodtager data
+    # turn on PWM
+    l = GPIO.PWM(12, 300)
+    r = GPIO.PWM(13, 300)
+    l.start(0)
+    r.start(0)
+
     runServer = True
     while runServer:
         data = forbindelse.recv(64)
         dekodet_data = data.decode("UTF-8")
         if dekodet_data == 'K_1':
             print('1')
+
         if dekodet_data == 'K_2':
             print('2')
+
         if dekodet_data == 'K_3':
             print('3')
 
         if dekodet_data == 'K_UP':
             print('up')
+            rover_forward()
+            pwm_power()
 
         if dekodet_data == 'K_DOWN':
             print('down')
+            rover_backward()
+            pwm_power()
+
         if dekodet_data == 'K_LEFT':
             print('left')
+            rover_forward()
+            left()
+
         if dekodet_data == 'K_RIGHT':
             print('right')
+            rover_forward()
+            right()
+
         if dekodet_data == 'K_SPACE':
             print('space')
+            pwm_power_stop()
+
         if dekodet_data == 'K_ESCAPE':
             print('shutting server down')
             runServer = False
+        else:
+            pwm_power_stop()
 
     forbindelse.close()
     run = False
