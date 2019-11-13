@@ -38,6 +38,7 @@ while run:
         if keys_pressed[pygame.K_ESCAPE]:
             data = 'K_ESCAPE'
             indkodet_data = data.encode("UTF-8")
+            skt.sendall(indkodet_data)
         # Gear shift on rover
         if keys_pressed[pygame.K_1]:
             data = 'K_1'
@@ -67,6 +68,10 @@ while run:
             skt.sendall(indkodet_data)
         if keys_pressed[pygame.K_RIGHT]:
             data = 'K_RIGHT'
+            indkodet_data = data.encode("UTF-8")
+            skt.sendall(indkodet_data)
+        if keys_pressed[pygame.K_SPACE]:
+            data = 'K_SPACE'
             indkodet_data = data.encode("UTF-8")
             skt.sendall(indkodet_data)
 
