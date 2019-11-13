@@ -107,5 +107,6 @@ while run:
             pwm_power_stop()
 
     forbindelse.close()
+    GPIO.cleanup()
     run = False
 skt.close()
