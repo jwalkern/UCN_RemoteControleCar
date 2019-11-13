@@ -35,13 +35,16 @@ def pwm_power_stop():
     l.ChangeDutyCycle(0)
     r.ChangeDutyCycle(0)
 
+
 def left():
-    l.ChangeDutyCycle(50)
+    l.ChangeDutyCycle(30)
     r.ChangeDutyCycle(100)
+
 
 def right():
     l.ChangeDutyCycle(100)
-    r.ChangeDutyCycle(50)
+    r.ChangeDutyCycle(30)
+
 
 print("Kører serveren\n")
 
@@ -103,7 +106,7 @@ while run:
         if dekodet_data == 'K_ESCAPE':
             print('shutting server down')
             runServer = False
-        #else:
+        # else:
         #    pwm_power_stop()
 
     forbindelse.close()

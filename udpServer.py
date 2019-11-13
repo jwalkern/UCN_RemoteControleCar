@@ -17,8 +17,7 @@ print("Kører serveren\n")
 host = "192.168.1.111"  # Dette er IP-adressen for Raspberry Pi
 port = 3001  # Husk at portnumre på 1024 og lavere er priviligerede
 
-skt = socket.socket(socket.AF_INET,
-                    socket.SOCK_DGRAM)  # Man kan give argumenter til denne (f.eks. om det skal være TCP eller UDP)
+skt = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # Man kan give argumenter til denne (f.eks. om det skal være TCP eller UDP)
 skt.bind((host, port))  # Tilskriver IP-adressen og porten til vores socket
 
 while True:
