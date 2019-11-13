@@ -46,7 +46,7 @@ def right():
     r.ChangeDutyCycle(30)
 
 
-print("Kører serveren\n")
+print("Server is running.\n")
 
 host = "192.168.240.18"  # Dette er IP-adressen for Raspberry Pi
 port = 3000  # Husk at portnumre på 1024 og lavere er priviligerede
@@ -58,7 +58,7 @@ skt.listen()  # Lytter efter forbindelser
 run = True
 while run:
     forbindelse, addresse = skt.accept()
-    print("Værten med " + str(addresse[0]) + " har etableret forbindelse.")
+    print("Host with " + str(addresse[0]) + " are connected.")
 
     # turn on PWM
     l = GPIO.PWM(12, 300)
