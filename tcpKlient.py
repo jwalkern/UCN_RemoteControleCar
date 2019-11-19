@@ -17,7 +17,6 @@ else:
 while run:
     skt = socket.socket()  # Laver en socket
     host = input("What is the server ip address?")
-    #host = "192.168.240.18"  # Dette er IP-adressen for Raspberry Pi
     port = 3000
     skt.connect((host, port))
 
