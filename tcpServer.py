@@ -74,7 +74,7 @@ while run:
         if dekodet_data == 'K_1':
             print('1')
             os.system('cd /home/pi/Desktop')
-            os.system('run ./script.sh')
+            os.system('./script.sh')
         if dekodet_data == 'K_2':
             print('2')
 
