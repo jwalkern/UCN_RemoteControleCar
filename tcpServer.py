@@ -37,13 +37,13 @@ def pwm_power_stop():
 
 
 def left():
-    l.ChangeDutyCycle(30)
+    l.ChangeDutyCycle(40)
     r.ChangeDutyCycle(100)
 
 
 def right():
     l.ChangeDutyCycle(100)
-    r.ChangeDutyCycle(30)
+    r.ChangeDutyCycle(40)
 
 
 print("Server is running.\n")
