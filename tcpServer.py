@@ -47,10 +47,11 @@ def right():
 
 
 print("Server is running.\n")
-host = input("What is the server ip address?")
-#host = "192.168.240.18"  # Dette er IP-adressen for Raspberry Pi
+#Get the ip address for the Raspberry Pi automatic
+hostname = socket.gethostname()
+host = socket.gethostbyname(hostname)
 port = 3000  # Husk at portnumre på 1024 og lavere er priviligerede
-
+print(hostname + host)
 skt = socket.socket()  # Man kan give argumenter til denne (f.eks. om det skal være TCP eller UDP)
 skt.bind((host, port))  # Tilskriver IP-adressen og porten til vores socket
 
