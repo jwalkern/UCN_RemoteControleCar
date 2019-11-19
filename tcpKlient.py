@@ -7,11 +7,11 @@ import socket
 import pygame
 
 
-host = input("What is the server ip address?")
+#host = input("What is the server ip address?")
 run = True
 while run:
     skt = socket.socket()  # Laver en socket
-
+    host = '192.168.240.18'
     port = 3000
     skt.connect((host, port))
 
