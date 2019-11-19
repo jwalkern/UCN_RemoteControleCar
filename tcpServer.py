@@ -72,9 +72,9 @@ while run:
         data = forbindelse.recv(64)
         dekodet_data = data.decode("UTF-8")
         if dekodet_data == 'K_1':
-            os.system('cd /home/pi/Desktop/projects/mjpg-streamer/mjpg-streamer-experimental/')
-            os.system('mjpg_streamer -o "output_http.so -w ./www" -i "input_raspicam.so"')
-
+            print('1')
+            os.system('cd /home/pi/Desktop')
+            os.system('run ./script.sh')
         if dekodet_data == 'K_2':
             print('2')
 
