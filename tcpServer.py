@@ -4,6 +4,7 @@ Dette er tcpServer, som modtager signal, og håndtere motor styring
 
 import socket
 import RPi.GPIO as GPIO
+import os
 
 # set motors ready for output
 GPIO.setmode(GPIO.BCM)
@@ -71,7 +72,8 @@ while run:
         data = forbindelse.recv(64)
         dekodet_data = data.decode("UTF-8")
         if dekodet_data == 'K_1':
-            print('1')
+            os.system('cd /home/pi/Desktop/projects/mjpg-streamer/mjpg-streamer-experimental/')
+            os.system('mjpg_streamer -o "output_http.so -w ./www" -i "input_raspicam.so"')
 
         if dekodet_data == 'K_2':
             print('2')
