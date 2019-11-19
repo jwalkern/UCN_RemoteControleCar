@@ -7,16 +7,11 @@ import socket
 import pygame
 
 
-promt = input("Type 'start' to connect server.")
-if promt == 'start':
-    run = True
-else:
-    print("shutting client down.")
-    run = False
-
+host = input("What is the server ip address?")
+run = True
 while run:
     skt = socket.socket()  # Laver en socket
-    host = input("What is the server ip address?")
+
     port = 3000
     skt.connect((host, port))
 
