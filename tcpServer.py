@@ -12,14 +12,14 @@ GPIO.setup(chan_list, GPIO.OUT)
 
 
 # define motor forwards and backwards
-def rover_backward():
+def rover_forward():
     GPIO.output(16, 0)
     GPIO.output(26, 1)
     GPIO.output(20, 1)
     GPIO.output(21, 0)
 
 
-def rover_forward():
+def rover_backward():
     GPIO.output(16, 1)
     GPIO.output(26, 0)
     GPIO.output(20, 0)
@@ -36,14 +36,14 @@ def pwm_power_stop():
     r.ChangeDutyCycle(0)
 
 
-def left():
-    l.ChangeDutyCycle(60)
+def right():
+    l.ChangeDutyCycle(45)
     r.ChangeDutyCycle(100)
 
 
-def right():
+def left():
     l.ChangeDutyCycle(100)
-    r.ChangeDutyCycle(60)
+    r.ChangeDutyCycle(45)
 
 
 print("Server is running.\n")
