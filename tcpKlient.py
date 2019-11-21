@@ -16,7 +16,7 @@ while run:
     skt.connect((host, port))
 
     pygame.init()
-    screen = pygame.display.set_mode((10, 10))
+    screen = pygame.display.set_mode((50, 50))
     pygame.display.set_caption('Control window')
 
     # Access a needed loop for pygame commands

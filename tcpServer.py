@@ -73,8 +73,7 @@ while run:
         dekodet_data = data.decode("UTF-8")
         if dekodet_data == 'K_1':
             print('1')
-            os.system('cd /home/pi/Desktop')
-            os.system('./script.sh')
+
         if dekodet_data == 'K_2':
             print('2')
 
@@ -82,27 +81,22 @@ while run:
             print('3')
 
         if dekodet_data == 'K_UP':
-            print('up')
             rover_forward()
             pwm_power()
 
         if dekodet_data == 'K_DOWN':
-            print('down')
             rover_backward()
             pwm_power()
 
         if dekodet_data == 'K_LEFT':
-            print('left')
             rover_forward()
             left()
 
         if dekodet_data == 'K_RIGHT':
-            print('right')
             rover_forward()
             right()
 
         if dekodet_data == 'K_SPACE':
-            print('space')
             pwm_power_stop()
 
         if dekodet_data == 'K_ESCAPE':
