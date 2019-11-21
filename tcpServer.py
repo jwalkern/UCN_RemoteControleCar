@@ -46,10 +46,10 @@ def right():
     l.ChangeDutyCycle(100)
     r.ChangeDutyCycle(50)
 
-
+host = input("What is the server ip address?")
 print("Server is running.\n")
 #host = input("What is the server ip address?")
-host = input("What is the server ip address?")  # Dette er IP-adressen for Raspberry Pi
+ # Dette er IP-adressen for Raspberry Pi
 port = 3000  # Husk at portnumre på 1024 og lavere er priviligerede
 
 skt = socket.socket()  # Man kan give argumenter til denne (f.eks. om det skal være TCP eller UDP)
