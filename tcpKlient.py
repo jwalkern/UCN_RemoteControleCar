@@ -6,13 +6,11 @@ Jan Nielsen
 import socket
 import pygame
 
-
-#host = input("What is the server ip address?")
 run = True
 while run:
     skt = socket.socket()  # Laver en socket
-    host = "192.168.240.18"
-    port = 4001
+    host = input("What is the server ip address? ")
+    port = 3001
     skt.connect((host, port))
 
     pygame.init()
